@@ -1,8 +1,43 @@
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 
 class DecimalToRomanTest {
     private val decimalToRoman = DecimalToRoman()
+
+    companion object {
+        @JvmStatic
+        fun simpleCases() = listOf(
+            Arguments.of(1, "I"),
+            Arguments.of(5, "V"),
+            Arguments.of(10, "X"),
+            Arguments.of(50, "L"),
+            Arguments.of(100, "C"),
+            Arguments.of(500, "D"),
+            Arguments.of(1000, "M")
+        )
+        @JvmStatic
+        fun edgeCases() = listOf(
+            Arguments.of(4, "IV"),
+            Arguments.of(9, "IX"),
+            Arguments.of(40, "XL"),
+            Arguments.of(90, "XC"),
+            Arguments.of(400, "CD"),
+            Arguments.of(900, "CM")
+        )
+
+        @JvmStatic
+        fun complexCases() = listOf(
+            Arguments.of(4214, "MMMMCCXIV"),
+            Arguments.of(1993, "MCMXCIII"),
+            Arguments.of(2001, "MMI"),
+            Arguments.of(640, "DCXL"),
+            Arguments.of(65, "LXV")
+        )
+
+    }
 
     @Test
     fun testDecimalToRomanConversion() {
@@ -10,68 +45,26 @@ class DecimalToRomanTest {
     }
 
     @Test
-    fun tesWhenInputIsZero() {
+    fun `when input is zero response should be an empty string`() {
         Assertions.assertEquals("", decimalToRoman.compute(0))
     }
 
-    @Test
-    fun testWhenInputIs1000() {
-        Assertions.assertEquals("M", decimalToRoman.compute(1000))
+    @ParameterizedTest
+    @MethodSource("simpleCases")
+    fun `test simple character conversion`(input: Int, expectedLetter: String) {
+        Assertions.assertEquals(expectedLetter, decimalToRoman.compute(input))
     }
 
-    @Test
-    fun testWhenInputIs900() {
-        Assertions.assertEquals("CM", decimalToRoman.compute(900))
+    @ParameterizedTest
+    @MethodSource("edgeCases")
+    fun `test edge cases where value is composed of two letters`(input: Int, expectedLetter: String) {
+        Assertions.assertEquals(expectedLetter, decimalToRoman.compute(input))
     }
 
-    @Test
-    fun testWhenInputIs500() {
-        Assertions.assertEquals("D", decimalToRoman.compute(500))
+    @ParameterizedTest
+    @MethodSource("complexCases")
+    fun `test complex cases`(input: Int, expectedLetter: String) {
+        Assertions.assertEquals(expectedLetter, decimalToRoman.compute(input))
     }
 
-    @Test
-    fun testWhenInputIs400() {
-        Assertions.assertEquals("CD", decimalToRoman.compute(400))
-    }
-
-    @Test
-    fun testWhenInputIs100() {
-        Assertions.assertEquals("C", decimalToRoman.compute(100))
-    }
-
-    @Test
-    fun testWhenInputIs90() {
-        Assertions.assertEquals("XC", decimalToRoman.compute(90))
-    }
-
-    @Test
-    fun testWhenInputIs50() {
-        Assertions.assertEquals("L", decimalToRoman.compute(50))
-    }
-
-    @Test
-    fun testWhenInputIs10() {
-        Assertions.assertEquals("X", decimalToRoman.compute(10))
-    }
-
-    @Test
-    fun testWhenInputIs9() {
-        Assertions.assertEquals("IX", decimalToRoman.compute(9))
-    }
-
-    @Test
-    fun testWhenInputIs5() {
-        Assertions.assertEquals("V", decimalToRoman.compute(5))
-    }
-
-    @Test
-    fun testWhenInputIs4() {
-        Assertions.assertEquals("IV", decimalToRoman.compute(4))
-    }
-
-    @Test
-    fun testWhenInputIs1() {
-        Assertions.assertEquals("I", decimalToRoman.compute(1))
-    }
-
-}
+   }
