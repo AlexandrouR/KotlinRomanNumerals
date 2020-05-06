@@ -1,5 +1,4 @@
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -27,17 +26,25 @@ class DecimalToRomanTest {
 
         @JvmStatic
         fun complexCases() = listOf(
-            Arguments.of(4214, "MMMMCCXIV"),
+            Arguments.of(3214, "MMMCCXIV"),
             Arguments.of(1993, "MCMXCIII"),
             Arguments.of(2001, "MMI"),
             Arguments.of(640, "DCXL"),
             Arguments.of(65, "LXV")
         )
+
+        @JvmStatic
+        fun bounds() = listOf(
+            Arguments.of(0, ""),
+            Arguments.of(3999, "")
+
+        )
     }
 
-    @Test
-    fun `when input is zero response should be an empty string`() {
-        Assertions.assertEquals("", decimalToRoman.compute(0))
+    @ParameterizedTest
+    @MethodSource("bounds")
+    fun `when input is out of bounds return empty response`(input: Int, expectedLetter: String){
+        Assertions.assertEquals(expectedLetter, decimalToRoman.compute(input))
     }
 
     @ParameterizedTest
