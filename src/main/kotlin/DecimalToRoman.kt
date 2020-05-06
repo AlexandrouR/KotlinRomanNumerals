@@ -5,10 +5,10 @@ class DecimalToRoman : Algorithm {
     override fun compute(number: Int): String {
         var remainder: Int = number
         val stringBuffer = StringBuilder()
-        if (numberIsValid(number)) {
+        if (numberIsGreaterThanZero(number)) {
             for (value in RomanNumbers.values()) {
                 var temp = calculateQuotient(remainder, value.decimalRepresentation)
-                if (numberIsValid(temp)) {
+                if (numberIsGreaterThanZero(temp)) {
                     while (temp > 0) {
                         stringBuffer.append(value)
                         temp--
@@ -21,7 +21,7 @@ class DecimalToRoman : Algorithm {
         return ""
     }
 
-    private fun numberIsValid(number: Int): Boolean {
+    private fun numberIsGreaterThanZero(number: Int): Boolean {
 
         return number > 0
     }

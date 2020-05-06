@@ -11,21 +11,18 @@ class DecimalToRomanTest {
         @JvmStatic
         fun simpleCases() = listOf(
             Arguments.of(1, "I"),
-            Arguments.of(5, "V"),
-            Arguments.of(10, "X"),
-            Arguments.of(50, "L"),
-            Arguments.of(100, "C"),
-            Arguments.of(500, "D"),
-            Arguments.of(1000, "M")
-        )
-        @JvmStatic
-        fun edgeCases() = listOf(
             Arguments.of(4, "IV"),
+            Arguments.of(5, "V"),
             Arguments.of(9, "IX"),
+            Arguments.of(10, "X"),
             Arguments.of(40, "XL"),
+            Arguments.of(50, "L"),
             Arguments.of(90, "XC"),
+            Arguments.of(100, "C"),
             Arguments.of(400, "CD"),
-            Arguments.of(900, "CM")
+            Arguments.of(500, "D"),
+            Arguments.of(900, "CM"),
+            Arguments.of(1000, "M")
         )
 
         @JvmStatic
@@ -36,12 +33,6 @@ class DecimalToRomanTest {
             Arguments.of(640, "DCXL"),
             Arguments.of(65, "LXV")
         )
-
-    }
-
-    @Test
-    fun testDecimalToRomanConversion() {
-        Assertions.assertEquals("MCMXCIII", decimalToRoman.compute(1993))
     }
 
     @Test
@@ -55,11 +46,6 @@ class DecimalToRomanTest {
         Assertions.assertEquals(expectedLetter, decimalToRoman.compute(input))
     }
 
-    @ParameterizedTest
-    @MethodSource("edgeCases")
-    fun `test edge cases where value is composed of two letters`(input: Int, expectedLetter: String) {
-        Assertions.assertEquals(expectedLetter, decimalToRoman.compute(input))
-    }
 
     @ParameterizedTest
     @MethodSource("complexCases")
@@ -67,4 +53,4 @@ class DecimalToRomanTest {
         Assertions.assertEquals(expectedLetter, decimalToRoman.compute(input))
     }
 
-   }
+}

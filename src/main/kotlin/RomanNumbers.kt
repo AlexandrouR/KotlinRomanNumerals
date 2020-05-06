@@ -12,5 +12,4 @@ enum class RomanNumbers(val decimalRepresentation: Int) {
     V(5),
     IV(4),
     I(1)
-
 }
