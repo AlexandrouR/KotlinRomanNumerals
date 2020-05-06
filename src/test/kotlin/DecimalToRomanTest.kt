@@ -51,7 +51,7 @@ class DecimalToRomanTest {
 
     @ParameterizedTest
     @MethodSource("simpleCases")
-    fun `test simple character conversion`(input: Int, expectedLetter: String) {
+    fun `test simple value conversion`(input: Int, expectedLetter: String) {
         Assertions.assertEquals(expectedLetter, decimalToRoman.compute(input))
     }
 
