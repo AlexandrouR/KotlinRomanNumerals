@@ -4,4 +4,4 @@ jdk:
 jobs:
   include:
     - stage: test
-      script: ./gradle clean test
+      script: ./gradlew clean test
